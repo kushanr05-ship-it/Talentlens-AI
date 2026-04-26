@@ -16,8 +16,12 @@ from sqlalchemy.orm import Session
 app = FastAPI()
 
 # Mount the static directory to serve index.html, style.css, script.js
-os.makedirs("static", exist_ok=True)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+try:
+    os.makedirs("static", exist_ok=True)
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+except Exception:
+    # Vercel's serverless environment has a read-only filesystem and may crash here.
+    pass
 
 GENSARA_API_KEY = "gk_live_ATCc1WwXYVPKt2nkiM0_8ZzWBSG0LrGwPI6PmQyeJtA"
 GENSARA_API_URL = "https://api.gensaralabs.com/api/chat"
