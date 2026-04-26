@@ -27,5 +27,8 @@ class Candidate(Base):
     report = Column(Text)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
-# Auto-create tables upon import
-Base.metadata.create_all(bind=engine)
+# Auto-create tables upon import safely
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception:
+    pass

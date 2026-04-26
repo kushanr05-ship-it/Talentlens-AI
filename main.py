@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse, HTMLResponse
 import io
 import csv
 from fastapi.staticfiles import StaticFiles
@@ -32,7 +32,12 @@ PROMPTOS_ID = "0f28cd6c-fe6b-11f0-9b23-baae711029b4"
 
 @app.get("/")
 async def read_index():
-    return FileResponse(os.path.join(STATIC_DIR, 'index.html'))
+    try:
+        with open(os.path.join(STATIC_DIR, 'index.html'), 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        return HTMLResponse(content=html_content)
+    except Exception as e:
+        return HTMLResponse(content=f"<h1>Vercel Deployment Error</h1><p>Could not load index.html from {STATIC_DIR}</p><p>Error details: {str(e)}</p>")
 
 def clean_text(text):
     text = re.sub(r'\s+', ' ', text)
