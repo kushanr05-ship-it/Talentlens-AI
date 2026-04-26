@@ -15,10 +15,13 @@ from sqlalchemy.orm import Session
 
 app = FastAPI()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+
 # Mount the static directory to serve index.html, style.css, script.js
 try:
-    os.makedirs("static", exist_ok=True)
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    os.makedirs(STATIC_DIR, exist_ok=True)
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 except Exception:
     # Vercel's serverless environment has a read-only filesystem and may crash here.
     pass
@@ -29,7 +32,7 @@ PROMPTOS_ID = "0f28cd6c-fe6b-11f0-9b23-baae711029b4"
 
 @app.get("/")
 async def read_index():
-    return FileResponse('static/index.html')
+    return FileResponse(os.path.join(STATIC_DIR, 'index.html'))
 
 def clean_text(text):
     text = re.sub(r'\s+', ' ', text)
