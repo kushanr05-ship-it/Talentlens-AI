@@ -1,0 +1,171 @@
+/* TalentLens AI - Intelligent Lens Theme Overrides */
+
+/* Globals & Animations */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------
+   Markdown Output Styles
+   -------------------------------------- */
+.markdown-body {
+    line-height: 1.7;
+    color: #464555; /* on-surface-variant */
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #131b2e; /* on-surface */
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.markdown-body h3 {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.markdown-body p, .markdown-body ul {
+    margin-bottom: 1.2rem;
+}
+
+.markdown-body ul {
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.markdown-body ul ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-body strong {
+    color: #131b2e;
+    font-weight: 600;
+}
+
+/* --------------------------------------
+   Chat Interface Styles
+   -------------------------------------- */
+.chat-box {
+    height: 350px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Custom Scrollbar for Chat */
+.chat-box::-webkit-scrollbar { width: 6px; }
+.chat-box::-webkit-scrollbar-track { background: transparent; }
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #c7c4d8; 
+    border-radius: 10px;
+}
+
+.chat-message {
+    max-width: 85%;
+    display: flex;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.message-content {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+}
+
+.user-message .message-content {
+    background: linear-gradient(135deg, #392cc1 0%, #534ad9 100%);
+    color: #ffffff;
+    border-radius: 1rem 1rem 0.25rem 1rem;
+    box-shadow: 0 4px 14px rgba(57, 44, 193, 0.15);
+}
+
+.ai-message {
+    align-self: flex-start;
+}
+
+.ai-message .message-content {
+    background: #f2f3ff; /* surface-container-low */
+    color: #131b2e; /* on-surface */
+    border-radius: 1rem 1rem 1rem 0.25rem;
+    box-shadow: 0 8px 40px rgba(19, 27, 46, 0.04);
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 0.8rem 1rem;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #777587; /* outline */
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* --------------------------------------
+   Print Styles
+   -------------------------------------- */
+@media print {
+    body { background: white; color: black; }
+    aside, header, form, .chat-section, button { display: none !important; }
+    #reportPage { display: block !important; }
+    .lg\:col-span-4 { display: none !important; }
+    .markdown-body h1, .markdown-body h2 { color: black; border-bottom: 1px solid #ccc; }
+    .markdown-body strong, .markdown-body p, .markdown-body li { color: black; }
+    .bg-surface-container-lowest {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+}
